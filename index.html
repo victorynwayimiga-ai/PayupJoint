@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice & Receipt Maker</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header class="no-print">
+        <h1>Invoice &amp; Receipt Maker</h1>
+        <p class="tagline">Create clean invoices and receipts for your business. Print or save as PDF.</p>
+    </header>
+
+    <div class="layout">
+        <!-- ============ FORM ============ -->
+        <div id="formArea" class="no-print">
+
+            <section class="panel">
+                <h2>Document</h2>
+                <div class="grid2">
+                    <div>
+                        <label for="docType">Type</label>
+                        <select id="docType">
+                            <option value="invoice">Invoice (asking for payment)</option>
+                            <option value="receipt">Receipt (payment received)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="docNumber">Number</label>
+                        <input id="docNumber" type="text">
+                    </div>
+                    <div>
+                        <label for="docDate">Date</label>
+                        <input id="docDate" type="date">
+                    </div>
+                    <div id="dueRow">
+                        <label for="docDue">Due date (optional)</label>
+                        <input id="docDue" type="date">
+                    </div>
+                    <div id="methodRow" hidden>
+                        <label for="payMethod">Payment method</label>
+                        <select id="payMethod">
+                            <option>Cash</option>
+                            <option selected>Bank transfer</option>
+                            <option>POS</option>
+                            <option>Cheque</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Your business</h2>
+                <p class="muted">Saved on this device, so you only type it once.</p>
+                <label for="bizName">Business name</label>
+                <input id="bizName" type="text" placeholder="Your business name" autocomplete="off">
+                <label for="bizAddress">Address</label>
+                <textarea id="bizAddress" rows="2" placeholder="Street, city, state"></textarea>
+                <div class="grid2">
+                    <div>
+                        <label for="bizPhone">Phone</label>
+                        <input id="bizPhone" type="tel" placeholder="08012345678">
+                    </div>
+                    <div>
+                        <label for="bizEmail">Email</label>
+                        <input id="bizEmail" type="email" placeholder="you@example.com">
+                    </div>
+                </div>
+                <label for="bizLogo">Logo (optional)</label>
+                <input id="bizLogo" type="file" accept="image/*">
+                <button type="button" id="removeLogoBtn" class="small secondary" hidden>Remove logo</button>
+            </section>
+
+            <section class="panel">
+                <h2 id="clientTitle">Bill to</h2>
+                <label for="clientName">Customer name</label>
+                <input id="clientName" type="text" placeholder="Customer or company name" autocomplete="off">
+                <label for="clientAddress">Address (optional)</label>
+                <textarea id="clientAddress" rows="2"></textarea>
+                <label for="clientPhone">Phone (optional)</label>
+                <input id="clientPhone" type="tel">
+            </section>
+
+            <section class="panel">
+                <h2>Items</h2>
+                <div id="itemsBox"></div>
+                <button type="button" id="addItemBtn" class="secondary">+ Add item</button>
+
+                <div class="grid2 top-gap">
+                    <div>
+                        <label for="discount">Discount (₦)</label>
+                        <input id="discount" type="number" min="0" step="any" value="0" inputmode="decimal">
+                    </div>
+                    <div>
+                        <label for="amountPaid">Amount paid (₦)</label>
+                        <input id="amountPaid" type="number" min="0" step="any" inputmode="decimal" placeholder="">
+                        <small class="muted" id="paidHint"></small>
+                    </div>
+                </div>
+
+                <label class="check"><input id="vatOn" type="checkbox"> Add VAT</label>
+                <div id="vatRow" hidden>
+                    <label for="vatRate">VAT rate (%)</label>
+                    <input id="vatRate" type="number" min="0" step="any" value="7.5" inputmode="decimal">
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Payment details &amp; notes</h2>
+                <label for="bankName">Bank</label>
+                <input id="bankName" type="text" placeholder="Bank name">
+                <div class="grid2">
+                    <div>
+                        <label for="accName">Account name</label>
+                        <input id="accName" type="text">
+                    </div>
+                    <div>
+                        <label for="accNumber">Account number</label>
+                        <input id="accNumber" type="text" inputmode="numeric">
+                    </div>
+                </div>
+                <label for="notes">Notes</label>
+                <textarea id="notes" rows="2"></textarea>
+            </section>
+
+            <section class="panel">
+                <h2>Actions</h2>
+                <div class="actions">
+                    <button type="button" id="printBtn" class="primary">Print / Save as PDF</button>
+                    <button type="button" id="saveBtn" class="secondary">Save to history</button>
+                    <button type="button" id="newBtn" class="secondary">New document</button>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Saved documents</h2>
+                <ul id="savedList"></ul>
+                <p id="noSaved" class="empty">Nothing saved yet.</p>
+            </section>
+        </div>
+
+        <!-- ============ PREVIEW ============ -->
+        <div id="previewArea">
+            <p class="no-print muted center">Live preview</p>
+            <div id="preview" class="sheet"></div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
